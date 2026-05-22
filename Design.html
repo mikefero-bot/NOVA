@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NOVA — Diseño Mecánico y Electrónico</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#08101e;--s:#0d1626;--c:#111e32;--b:#1a2a42;--b2:#203050;--teal:#00d4aa;--blue:#4d9fff;--amber:#ffb84d;--coral:#ff6060;--purple:#a78bfa;--green:#4ade80;--red:#ff4d6a;--muted:#6e80a0;--faint:#2a3a56;--text:#dde4f0}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+nav{position:sticky;top:0;z-index:99;background:rgba(8,16,30,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--b);display:flex;align-items:center;overflow-x:auto;padding:0 20px;gap:0}
+nav .logo{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:var(--teal);letter-spacing:2px;padding:12px 16px 12px 0;white-space:nowrap}
+nav a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--muted);text-decoration:none;padding:13px 12px;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}
+nav a:hover{color:var(--teal);border-bottom-color:var(--teal)}
+.hero{padding:56px 24px 44px;text-align:center;border-bottom:1px solid var(--b);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:600px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,170,.06),transparent 70%);pointer-events:none}
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--teal);border:1px solid rgba(0,212,170,.35);background:rgba(0,212,170,.06);padding:4px 14px;border-radius:4px;margin-bottom:18px}
+.hero h1{font-size:clamp(1.7rem,4vw,2.8rem);font-weight:700;color:#fff;letter-spacing:-.5px;line-height:1.1;margin-bottom:10px}
+.hero h1 em{color:var(--teal);font-style:normal}
+.hero p{color:var(--muted);max-width:520px;margin:0 auto;font-size:.88rem}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.sec{padding:48px 0;border-bottom:1px solid var(--b)}
+.ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--teal);margin-bottom:5px}
+.st{font-size:1.45rem;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:-.4px}
+.sd{color:var(--muted);font-size:.87rem;margin-bottom:24px;max-width:680px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:20px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--teal)}
+.muted{color:var(--muted)}
+.chip{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 8px;border-radius:3px;font-weight:600;letter-spacing:.5px}
+.c-t{background:rgba(0,212,170,.1);color:var(--teal)}
+.c-b{background:rgba(77,159,255,.1);color:var(--blue)}
+.c-a{background:rgba(255,184,77,.1);color:var(--amber)}
+.c-c{background:rgba(255,96,96,.1);color:var(--coral)}
+.c-p{background:rgba(167,139,250,.1);color:var(--purple)}
+.c-g{background:rgba(74,222,128,.1);color:var(--green)}
+table{width:100%;border-collapse:collapse}
+thead th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;padding:9px 12px;border-bottom:1px solid var(--b2);text-align:left;background:var(--s)}
+td{padding:8px 12px;border-bottom:1px solid var(--b);font-size:.82rem;vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.012)}
+.dbox{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.dtitle{padding:10px 18px;border-bottom:1px solid var(--b);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.dtitle::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.tip{border-radius:8px;padding:10px 14px;font-size:.82rem;line-height:1.7}
+.tip-t{background:rgba(0,212,170,.07);border-left:3px solid var(--teal);color:#90ffe8}
+.tip-a{background:rgba(255,184,77,.07);border-left:3px solid var(--amber);color:#ffe0a0}
+.tip-b{background:rgba(77,159,255,.07);border-left:3px solid var(--blue);color:#a0d0ff}
+.tip-p{background:rgba(167,139,250,.07);border-left:3px solid var(--purple);color:#d0c0ff}
+.btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;padding:20px}
+.btn3{display:flex;flex-direction:column;align-items:center;gap:7px}
+.bcap{width:58px;height:58px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.5),0 8px 14px rgba(0,0,0,.4);transition:.1s;cursor:default;user-select:none}
+.bcap.p{box-shadow:0 2px 0 rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.4);transform:translateY(4px)}
+.blbl{font-size:.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;text-align:center}
+.bgpio{font-size:.62rem;color:var(--faint);font-family:'JetBrains Mono',monospace}
+.wleg{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.wl{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+.wln{width:28px;height:3px;border-radius:2px;flex-shrink:0}
+pre{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.85;overflow-x:auto;color:var(--text)}
+.kw{color:var(--purple)}.cm{color:var(--muted)}.num{color:var(--teal)}.fn{color:var(--blue)}
+.pin-card{background:var(--c);border:1px solid var(--b);border-radius:12px;overflow:hidden}
+.pin-hdr{padding:10px 16px;font-size:.85rem;font-weight:600;border-bottom:1px solid var(--b);display:flex;align-items:center;gap:8px}
+@media(max-width:640px){.wrap{padding:0 12px}.sec{padding:32px 0}}
+</style>
+</head>
+<body>
+<nav>
+  <span class="logo">◉ NOVA</span>
+  <a href="#mecanico">Mecánico</a>
+  <a href="#bloques">Bloques</a>
+  <a href="#esquematico">Esquemático</a>
+  <a href="#cableado">Cableado</a>
+  <a href="#botones">Botones 3D</a>
+  <a href="#pcb">PCB</a>
+  <a href="#bom">Materiales</a>
+  <a href="#codigo">Código</a>
+</nav>
+<div class="hero">
+  <div class="tag">DOCUMENTACIÓN TÉCNICA COMPLETA v1.0</div>
+  <h1>NOVA — Diseño <em>Mecánico</em> y <em>Electrónico</em></h1>
+  <p>Consola portátil educativo-terapéutica · ESP32 + TFT 2.4" + 8 botones físicos 3D · Offline · Recargable · Entorno hospitalario</p>
+</div>
+<div class="wrap">
+<!-- S1 MECÁNICO -->
+<section class="sec" id="mecanico">
+<div class="ey">Sección 01</div>
+<div class="st">Diseño Mecánico — Carcasa 3D</div>
+<div class="sd">Carcasa de dos piezas en PLA blanco. Tapa superior (pantalla + botones) y cuerpo inferior (electrónica + batería). Todas las cotas para impresión 3D.</div>
+<div class="dbox">
+<div class="dtitle">Vista frontal · lateral · explosionada — cotas en mm</div>
+<svg width="100%" viewBox="0 0 940 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6e80a0" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-linecap="round"/></marker>
+</defs>
+<!-- FRONTAL -->
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#00d4aa" x="52" y="22">VISTA FRONTAL</text>
+<rect x="52" y="32" width="198" height="318" rx="28" fill="#111e32" stroke="#1a2a42" stroke-width="1.5"/>
+<rect x="81" y="54" width="140" height="106" rx="7" fill="#060e1a" stroke="#00d4aa" stroke-width="1"/>
+<rect x="81" y="54" width="140" height="3" rx="1" fill="rgba(0,212,170,.25)"/>
+<circle cx="151" cy="102" r="22" fill="#f5c842" opacity=".88"/>
+<circle cx="144" cy="97" r="3.5" fill="#060e1a"/><circle cx="158" cy="97" r="3.5" fill="#060e1a"/>
+<path d="M142 110 Q151 119 160 110" fill="none" stroke="#060e1a" stroke-width="1.8" stroke-linecap="round"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" text-anchor="middle" x="151" y="148">NOVA</text>
+<rect x="64" y="190" width="32" height="32" rx="8" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1"/>
+<polygon points="80,197 88,211 72,211" fill="white"/>
+<rect x="64" y="260" width="32" height="32" rx="8" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1"/>
+<polygon points="80,286 88,272 72,272" fill="white"/>
+<rect x="50" y="225" width="32" height="32" rx="8" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1"/>
+<polygon points="54,241 66,233 66,249" fill="white"/>
+<rect x="82" y="225" width="32" height="32" rx="8" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1"/>
+<polygon points="110,241 98,233 98,249" fill="white"/>
+<circle cx="80" cy="241" r="8.5" fill="#0d1626" stroke="#1a2a42" stroke-width="1"/>
+<rect x="177" y="225" width="32" height="32" rx="8" fill="#7c5cbf" stroke="#a78bfa" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="193" y="241">X</text>
+<rect x="209" y="225" width="32" height="32" rx="8" fill="#d94f4f" stroke="#ff6060" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="225" y="241">A</text>
+<rect x="193" y="190" width="32" height="32" rx="8" fill="#2d9e58" stroke="#4ade80" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="209" y="206">Y</text>
+<rect x="193" y="260" width="32" height="32" rx="8" fill="#c07820" stroke="#ffb84d" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="209" y="276">B</text>
+<rect x="122" y="332" width="58" height="14" rx="7" fill="#0d1626" stroke="#203050" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" dominant-baseline="central" x="151" y="339">POWER</text>
+<circle cx="103" cy="356" r="2" fill="#203050"/><circle cx="112" cy="356" r="2" fill="#203050"/><circle cx="121" cy="356" r="2" fill="#203050"/>
+<circle cx="181" cy="356" r="2" fill="#203050"/><circle cx="190" cy="356" r="2" fill="#203050"/><circle cx="199" cy="356" r="2" fill="#203050"/>
+<line x1="52" y1="400" x2="250" y2="400" stroke="#6e80a0" stroke-width=".8" marker-start="url(#am)" marker-end="url(#am)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" fill="#6e80a0" text-anchor="middle" x="151" y="413">120 mm</text>
+<line x1="28" y1="32" x2="28" y2="350" stroke="#6e80a0" stroke-width=".8" marker-start="url(#am)" marker-end="url(#am)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" fill="#6e80a0" text-anchor="middle" x="10" y="191" transform="rotate(-90,10,191)">190 mm</text>
+<line x1="81" y1="43" x2="221" y2="43" stroke="#00d4aa" stroke-width=".7" stroke-dasharray="4 3" marker-start="url(#at)" marker-end="url(#at)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#00d4aa" text-anchor="middle" x="151" y="39">80 mm pantalla</text>
+<!-- LATERAL -->
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#6e80a0" x="332" y="22">LATERAL</text>
+<rect x="332" y="96" width="52" height="258" rx="13" fill="#111e32" stroke="#1a2a42" stroke-width="1.5"/>
+<rect x="353" y="336" width="22" height="9" rx="3" fill="#060e1a" stroke="#203050" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6" fill="#6e80a0" text-anchor="middle" x="364" y="343">USB</text>
+<ellipse cx="334" cy="118" rx="4.5" ry="6.5" fill="#060e1a" stroke="#203050" stroke-width="1"/>
+<rect x="330" y="216" width="8" height="20" rx="4" fill="#203050" stroke="#2a3a56" stroke-width="1"/>
+<line x1="332" y1="416" x2="384" y2="416" stroke="#6e80a0" stroke-width=".8" marker-start="url(#am)" marker-end="url(#am)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" fill="#6e80a0" text-anchor="middle" x="358" y="430">24 mm</text>
+<line x1="332" y1="118" x2="304" y2="118" stroke="#6e80a0" stroke-width=".5" stroke-dasharray="3 2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="232" y="121">Jack 3.5mm</text>
+<line x1="330" y1="226" x2="304" y2="226" stroke="#6e80a0" stroke-width=".5" stroke-dasharray="3 2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="242" y="229">POWER btn</text>
+<line x1="364" y1="340" x2="392" y2="340" stroke="#6e80a0" stroke-width=".5" stroke-dasharray="3 2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="395" y="343">USB-C</text>
+<!-- EXPLOSIONADA -->
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#00d4aa" x="492" y="22">EXPLOSIONADA</text>
+<rect x="492" y="34" width="200" height="126" rx="18" fill="none" stroke="#203050" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="504" y="50">TAPA SUPERIOR — PLA blanco</text>
+<rect x="522" y="57" width="104" height="76" rx="6" fill="#060e1a" stroke="#00d4aa" stroke-width="1"/>
+<circle cx="574" cy="92" r="17" fill="#f5c842" opacity=".75"/>
+<circle cx="568" cy="88" r="3" fill="#060e1a"/><circle cx="580" cy="88" r="3" fill="#060e1a"/>
+<path d="M565 98 Q574 106 583 98" fill="none" stroke="#060e1a" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="640" y="60" width="24" height="24" rx="6" fill="#2d7dd6" opacity=".8"/><text font-family="'JetBrains Mono',monospace" font-size="7" fill="white" text-anchor="middle" x="652" y="75">↑↓</text>
+<rect x="640" y="92" width="24" height="24" rx="6" fill="#d94f4f" opacity=".8"/><text font-family="'JetBrains Mono',monospace" font-size="7" fill="white" text-anchor="middle" x="652" y="107">AX</text>
+<rect x="492" y="178" width="200" height="5" rx="2" fill="#203050" stroke="#2a3a56" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="504" y="197">Separadores PCB M2 — h:4mm (4×)</text>
+<line x1="592" y1="160" x2="592" y2="176" stroke="#2a3a56" stroke-width=".8" stroke-dasharray="3 2" marker-end="url(#am)"/>
+<line x1="542" y1="160" x2="542" y2="176" stroke="#2a3a56" stroke-width=".8" stroke-dasharray="3 2" marker-end="url(#am)"/>
+<rect x="492" y="212" width="200" height="130" rx="18" fill="none" stroke="#203050" stroke-width="1.5" stroke-dasharray="6 3"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="504" y="228">CUERPO INFERIOR — PLA blanco</text>
+<rect x="506" y="238" width="70" height="36" rx="5" fill="#1a2238" stroke="#4d9fff" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#4d9fff" text-anchor="middle" x="541" y="257">ESP32</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="541" y="268">DevKit V1</text>
+<rect x="586" y="238" width="76" height="48" rx="5" fill="#1a2238" stroke="#ffb84d" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#ffb84d" text-anchor="middle" x="624" y="259">Li-Po</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#ffb84d" text-anchor="middle" x="624" y="270">2000mAh</text>
+<rect x="506" y="284" width="36" height="20" rx="3" fill="#1a2238" stroke="#ff6060" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#ff6060" text-anchor="middle" x="524" y="296">TP4056</text>
+<rect x="548" y="284" width="36" height="20" rx="3" fill="#1a2238" stroke="#a78bfa" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#a78bfa" text-anchor="middle" x="566" y="296">MT3608</text>
+<rect x="586" y="290" width="36" height="20" rx="3" fill="#1a2238" stroke="#4ade80" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4ade80" text-anchor="middle" x="604" y="302">PAM8302</text>
+<circle cx="660" cy="320" r="13" fill="#1a2238" stroke="#4ade80" stroke-width="1"/>
+<circle cx="660" cy="320" r="6.5" fill="none" stroke="#4ade80" stroke-width=".7"/>
+<circle cx="660" cy="320" r="2.5" fill="#4ade80" opacity=".4"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4ade80" text-anchor="middle" x="660" y="338">SPK</text>
+<circle cx="500" cy="42" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="684" cy="42" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="500" cy="156" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="684" cy="156" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="500" cy="218" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="684" cy="218" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="500" cy="334" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<circle cx="684" cy="334" r="3.5" fill="none" stroke="#2a3a56" stroke-width="1" stroke-dasharray="2 1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="698" y="50">M2×8 ×4</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="698" y="222">M2×8 ×4</text>
+<line x1="492" y1="456" x2="692" y2="456" stroke="#6e80a0" stroke-width=".8" marker-start="url(#am)" marker-end="url(#am)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" fill="#6e80a0" text-anchor="middle" x="592" y="469">110 × 175 mm — espacio interior útil</text>
+<!-- CAP DETALLE -->
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#ffb84d" x="758" y="22">CAP 3D — sección</text>
+<rect x="796" y="36" width="50" height="46" rx="8" fill="#2d7dd6"/>
+<polygon points="821,45 833,56 809,56" fill="white"/>
+<rect x="812" y="82" width="18" height="24" rx="3" fill="#1a3060"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="68">Base: 14×14mm</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="80">Alto total: 8mm</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="758" y="96">Vástago 3.5×3.5×3mm</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="108">Ajuste a presión</text>
+<rect x="784" y="106" width="76" height="18" rx="3" fill="#0d1626" stroke="#203050" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="822" y="118">Interruptor 6×6mm</text>
+<line x1="792" y1="124" x2="792" y2="138" stroke="#4d9fff" stroke-width="1.2"/>
+<line x1="852" y1="124" x2="852" y2="138" stroke="#2a3a56" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#4d9fff" x="758" y="148">Pin 1 → GPIO</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="758" y="160">Pin 2 → GND</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="178">Sin resistencia</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="190">INPUT_PULLUP</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="206">PLA 60% relleno</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="758" y="218">Capa 0.15mm</text>
+</svg>
+</div>
+<div class="grid3">
+<div class="card">
+<div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);margin-bottom:10px">CARCASA EXTERIOR</div>
+<table><tbody>
+<tr><td>Largo × Ancho</td><td class="mono">190 × 120 mm</td></tr>
+<tr><td>Grosor total</td><td class="mono">24 mm</td></tr>
+<tr><td>Radio esquinas</td><td class="mono">R30 mm</td></tr>
+<tr><td>Material</td><td class="mono">PLA blanco</td></tr>
+<tr><td>Relleno carcasa</td><td class="mono">20% Gyroid</td></tr>
+<tr><td>Altura de capa</td><td class="mono">0.20 mm</td></tr>
+<tr><td>Temperatura</td><td class="mono">200°C / cama 60°C</td></tr>
+<tr><td>Tolerancia fit</td><td class="mono">+0.3 mm</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--blue);margin-bottom:10px">VENTANA Y ORIFICIOS</div>
+<table><tbody>
+<tr><td>Apertura pantalla</td><td class="mono">83 × 62 mm</td></tr>
+<tr><td>Profundidad hueco</td><td class="mono">3.5 mm</td></tr>
+<tr><td>Tornillos pantalla</td><td class="mono">M2 × 4 uds.</td></tr>
+<tr><td>Puerto USB-C</td><td class="mono">9 × 4 mm — base</td></tr>
+<tr><td>Jack 3.5mm audio</td><td class="mono">Ø 6.5 mm — lateral</td></tr>
+<tr><td>Botón POWER</td><td class="mono">8 × 6 mm — lateral</td></tr>
+<tr><td>Grilla parlante</td><td class="mono">2×8 orif. Ø 2 mm</td></tr>
+<tr><td>Unión tapa/cuerpo</td><td class="mono">M2×8 × 4 esq.</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--amber);margin-bottom:10px">CAP DE BOTONES 3D</div>
+<table><tbody>
+<tr><td>Base del cap</td><td class="mono">14 × 14 mm</td></tr>
+<tr><td>Altura total</td><td class="mono">8 mm</td></tr>
+<tr><td>Vástago</td><td class="mono">3.5 × 3.5 × 3 mm</td></tr>
+<tr><td>Ajuste vástago</td><td class="mono">Presión snug-fit</td></tr>
+<tr><td>Flecha (triángulo)</td><td class="mono">10 × 8 × 1.5 mm</td></tr>
+<tr><td>Letra ABXY relieve</td><td class="mono">h: 1.0 mm</td></tr>
+<tr><td>Relleno caps</td><td class="mono">60% Gyroid</td></tr>
+<tr><td>Capa caps</td><td class="mono">0.15 mm</td></tr>
+</tbody></table>
+</div>
+</div>
+</section>
+
+<section class="sec" id="bloques">
+<div class="ey">Sección 02</div><div class="st">Diagrama de Bloques del Sistema</div>
+<div class="sd">Flujo de energía USB→Batería→Boost→ESP32 y flujo de datos GPIO/SPI hacia pantalla, audio y botones.</div>
+<div class="dbox"><div class="dtitle">Sistema NOVA — arquitectura completa</div>
+<svg width="100%" viewBox="0 0 940 490" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="b1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="b2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffb84d" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="b3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#4d9fff" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="b4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="b5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="b6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff6060" stroke-width="1.5" stroke-linecap="round"/></marker>
+</defs>
+<rect x="18" y="190" width="88" height="56" rx="9" fill="#111e32" stroke="#ff6060" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#ff6060" text-anchor="middle" x="62" y="215">USB-C</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="62" y="230">5V / 1A</text>
+<rect x="148" y="175" width="108" height="86" rx="9" fill="#111e32" stroke="#ff6060" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#ff6060" text-anchor="middle" x="202" y="202">TP4056</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="202" y="216">Control carga</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="202" y="229">Li-Po + DW01</text>
+<circle cx="178" cy="250" r="4" fill="#ff6060" opacity=".7"/><circle cx="192" cy="250" r="4" fill="#4d9fff" opacity=".7"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="200" y="253">LED R/B</text>
+<rect x="148" y="298" width="108" height="62" rx="9" fill="#111e32" stroke="#ffb84d" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#ffb84d" text-anchor="middle" x="202" y="325">Li-Po</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="202" y="339">3.7V / 2000mAh</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="202" y="352">JST-PH 2.0</text>
+<rect x="298" y="175" width="108" height="86" rx="9" fill="#111e32" stroke="#a78bfa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#a78bfa" text-anchor="middle" x="352" y="202">MT3608</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="352" y="216">DC-DC Boost</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="352" y="229">3.7V → 5V / 2A</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="352" y="245">Inductor 4.7µH</text>
+<rect x="448" y="140" width="192" height="210" rx="13" fill="#08101e" stroke="#4d9fff" stroke-width="2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="13" font-weight="700" fill="#4d9fff" text-anchor="middle" x="544" y="172">ESP32</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" text-anchor="middle" x="544" y="186">DevKit V1 · 240MHz · 520KB</text>
+<line x1="458" y1="196" x2="630" y2="196" stroke="#1a2a42" stroke-width=".7"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="460" y="208">GPIO 18 SCK    GPIO 23 MOSI</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="460" y="220">GPIO 15 CS     GPIO  2 DC</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="460" y="232">GPIO  4 RST    GPIO 21 T_CS</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="460" y="244">GPIO 22 T_IRQ  GPIO 25 DAC</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#4d9fff" x="460" y="256">GPIO 34↑  35↓  32←  33→</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa" x="460" y="268">GPIO 26A  27B  14X  13Y</text>
+<line x1="458" y1="278" x2="630" y2="278" stroke="#1a2a42" stroke-width=".7"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="460" y="290">VIN:5V  3V3:out  GND</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="460" y="302">Wi-Fi · Flash 4MB · EEPROM</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="460" y="316">USB → Arduino IDE</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="460" y="328">2 cores · 520KB RAM</text>
+<rect x="700" y="66" width="128" height="110" rx="9" fill="#111e32" stroke="#00d4aa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#00d4aa" text-anchor="middle" x="764" y="95">TFT 2.4"</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="764" y="109">ILI9341</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="122">240×320px · SPI 40MHz</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="135">Touch XPT2046</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="148">3.3V logic · TFT_eSPI</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="162">LED → 3V3 · 16-bit color</text>
+<rect x="700" y="204" width="128" height="82" rx="9" fill="#111e32" stroke="#4d9fff" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#4d9fff" text-anchor="middle" x="764" y="230">D-PAD ↑↓←→</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="764" y="245">GPIO 34·35·32·33</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="259">INPUT_PULLUP · NO resistencias</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="272">Caps PLA azul 3D</text>
+<rect x="700" y="314" width="128" height="90" rx="9" fill="#111e32" stroke="#a78bfa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#a78bfa" text-anchor="middle" x="764" y="340">A · B · X · Y</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="764" y="355">GPIO 26·27·14·13</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="369">INPUT_PULLUP · NO resistencias</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#d94f4f" text-anchor="middle" x="748" y="383">A</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#c07820" text-anchor="middle" x="760" y="383">B</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa" text-anchor="middle" x="772" y="383">X</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#4ade80" text-anchor="middle" x="784" y="383">Y</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="764" y="397">caps 4 colores PLA</text>
+<rect x="448" y="388" width="94" height="66" rx="9" fill="#111e32" stroke="#4ade80" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#4ade80" text-anchor="middle" x="495" y="416">PAM8302</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" text-anchor="middle" x="495" y="430">Amplif. 2.5W</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="495" y="444">mono · 5V · IN:DAC</text>
+<rect x="556" y="388" width="94" height="66" rx="9" fill="#111e32" stroke="#4ade80" stroke-width="1.5"/>
+<circle cx="603" cy="416" r="17" fill="none" stroke="#4ade80" stroke-width="1"/>
+<circle cx="603" cy="416" r="9" fill="none" stroke="#4ade80" stroke-width=".7"/>
+<circle cx="603" cy="416" r="3" fill="#4ade80" opacity=".4"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4ade80" text-anchor="middle" x="603" y="444">8Ω · 0.5W</text>
+<line x1="106" y1="218" x2="146" y2="218" stroke="#ff6060" stroke-width="1.8" marker-end="url(#b6)"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#ff6060" text-anchor="middle" x="126" y="212">5V</text>
+<line x1="202" y1="261" x2="202" y2="296" stroke="#ffb84d" stroke-width="1.8" marker-start="url(#b2)" marker-end="url(#b2)"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#ffb84d" x="207" y="281">3.7V</text>
+<path d="M256 327 L278 327 L278 218 L296 218" fill="none" stroke="#ffb84d" stroke-width="1.8" marker-end="url(#b5)"/>
+<line x1="406" y1="218" x2="446" y2="218" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#b5)"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#a78bfa" text-anchor="middle" x="426" y="212">5V</text>
+<path d="M640 183 L670 183 L670 122 L698 122" fill="none" stroke="#00d4aa" stroke-width="1.8" marker-end="url(#b1)"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#00d4aa" x="648" y="158">SPI</text>
+<line x1="640" y1="252" x2="698" y2="252" stroke="#4d9fff" stroke-width="1.8" marker-end="url(#b3)" marker-start="url(#b3)"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#4d9fff" text-anchor="middle" x="669" y="246">GPIO</text>
+<path d="M640 296 L670 296 L670 358 L698 358" fill="none" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#b5)"/>
+<path d="M544 350 L544 386" fill="none" stroke="#4ade80" stroke-width="1.8" marker-end="url(#b4)"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ade80" x="548" y="372">DAC</text>
+<line x1="542" y1="421" x2="554" y2="421" stroke="#4ade80" stroke-width="1.8" marker-end="url(#b4)"/>
+<line x1="18" y1="458" x2="850" y2="458" stroke="#2a3a56" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="14" y="454">GND</text><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="836" y="454">GND</text>
+<line x1="62" y1="246" x2="62" y2="456" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="202" y1="360" x2="202" y2="456" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="352" y1="261" x2="352" y2="456" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="544" y1="350" x2="544" y2="456" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="764" y1="404" x2="764" y2="456" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<rect x="18" y="16" width="456" height="30" rx="6" fill="#0d1626" stroke="#1a2a42" stroke-width="1"/>
+<line x1="30" y1="31" x2="58" y2="31" stroke="#ff6060" stroke-width="2"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="62" y="35">Carga</text>
+<line x1="120" y1="31" x2="148" y2="31" stroke="#ffb84d" stroke-width="2"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="152" y="35">Batería</text>
+<line x1="212" y1="31" x2="240" y2="31" stroke="#a78bfa" stroke-width="2"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="244" y="35">Boost 5V</text>
+<line x1="310" y1="31" x2="338" y2="31" stroke="#00d4aa" stroke-width="2"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="342" y="35">SPI/GPIO</text>
+<line x1="408" y1="31" x2="436" y2="31" stroke="#2a3a56" stroke-width="2" stroke-dasharray="5 2"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="440" y="35">GND</text>
+</svg></div></section>
+
+<section class="sec" id="esquematico">
+<div class="ey">Sección 03</div><div class="st">Esquemático Electrónico + Tabla de Conexiones</div>
+<div class="sd">Circuito completo con pines exactos y valores de componentes. Referencia directa para armar en protoboard o soldar en PCB.</div>
+<div class="dbox"><div class="dtitle">Esquemático — alimentación · ESP32 · pantalla · audio · botones</div>
+<svg width="100%" viewBox="0 0 940 420" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="s1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff6060" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="s2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ffb84d" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="s3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="s4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="s5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round"/></marker>
+</defs>
+<!-- USB-C -->
+<rect x="12" y="60" width="58" height="38" rx="6" fill="#111e32" stroke="#ff6060" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#ff6060" text-anchor="middle" x="41" y="78">USB-C</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="41" y="90">5V/1A</text>
+<line x1="70" y1="70" x2="106" y2="70" stroke="#ff6060" stroke-width="1.5" marker-end="url(#s1)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#ff6060" text-anchor="middle" x="88" y="65">5V</text>
+<!-- TP4056 -->
+<rect x="106" y="46" width="106" height="110" rx="8" fill="#111e32" stroke="#ff6060" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#ff6060" text-anchor="middle" x="159" y="70">TP4056</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="159" y="82">Ctrl.carga Li-Po</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="110" y="68">IN+</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="110" y="88">IN-</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#ffb84d" x="110" y="110">B+</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="110" y="128">B-</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#ffb84d" x="176" y="110">OUT+</text>
+<circle cx="156" cy="138" r="3" fill="#ff6060" opacity=".6"/><circle cx="166" cy="138" r="3" fill="#4d9fff" opacity=".6"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="173" y="141">R/B LED</text>
+<line x1="212" y1="107" x2="246" y2="107" stroke="#ffb84d" stroke-width="1.5" marker-end="url(#s2)"/>
+<!-- Bat -->
+<rect x="106" y="196" width="106" height="60" rx="8" fill="#111e32" stroke="#ffb84d" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#ffb84d" text-anchor="middle" x="159" y="222">Li-Po</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" text-anchor="middle" x="159" y="235">3.7V / 2000mAh</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="159" y="247">JST-PH 2.0</text>
+<line x1="106" y1="218" x2="86" y2="218" stroke="#ffb84d" stroke-width="1.2"/>
+<line x1="86" y1="108" x2="86" y2="218" stroke="#ffb84d" stroke-width="1.2"/>
+<line x1="86" y1="108" x2="106" y2="108" stroke="#ffb84d" stroke-width="1.2"/>
+<line x1="106" y1="232" x2="80" y2="232" stroke="#6e80a0" stroke-width="1"/>
+<line x1="80" y1="126" x2="80" y2="232" stroke="#6e80a0" stroke-width="1"/>
+<line x1="80" y1="126" x2="106" y2="126" stroke="#6e80a0" stroke-width="1"/>
+<path d="M212 218 L234 218 L234 107" fill="none" stroke="#ffb84d" stroke-width="1.5" marker-end="url(#s3)"/>
+<!-- MT3608 -->
+<rect x="246" y="46" width="106" height="110" rx="8" fill="#111e32" stroke="#a78bfa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#a78bfa" text-anchor="middle" x="299" y="70">MT3608</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="299" y="82">DC-DC Boost</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="299" y="95">3.7V→5V / 2A</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="250" y="68">VIN+</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa" x="320" y="68">5V OUT</text>
+<ellipse cx="288" cy="34" rx="12" ry="8" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+<ellipse cx="312" cy="34" rx="12" ry="8" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa" text-anchor="middle" x="300" y="21">L1 4.7µH</text>
+<rect x="352" y="56" width="4" height="46" fill="#a78bfa" opacity=".3"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="358" y="83">C1 100µF</text>
+<line x1="352" y1="68" x2="386" y2="68" stroke="#a78bfa" stroke-width="1.8" marker-end="url(#s3)"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#a78bfa" text-anchor="middle" x="369" y="63">5V</text>
+<!-- ESP32 bloque central -->
+<rect x="386" y="28" width="206" height="360" rx="12" fill="#08101e" stroke="#4d9fff" stroke-width="2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#4d9fff" text-anchor="middle" x="489" y="52">ESP32 DevKit</text>
+<line x1="396" y1="60" x2="582" y2="60" stroke="#1a2a42" stroke-width=".7"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" x="396" y="74">VIN (5V) ←</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2a3a56" x="396" y="87">GND</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" x="396" y="100">3V3 → (salida a TFT)</text>
+<line x1="396" y1="108" x2="582" y2="108" stroke="#1a2a42" stroke-width=".6"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="120">GPIO 18 → SCK</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="133">GPIO 23 → MOSI</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="146">GPIO 15 → CS</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="159">GPIO  2 → DC</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="172">GPIO  4 → RST</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="185">GPIO 21 → T_CS</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" x="396" y="198">GPIO 22 ← T_IRQ</text>
+<line x1="396" y1="206" x2="582" y2="206" stroke="#1a2a42" stroke-width=".6"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" x="396" y="218">GPIO 34 ← ↑ ARRIBA</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" x="396" y="231">GPIO 35 ← ↓ ABAJO</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" x="396" y="244">GPIO 32 ← ← IZQUIERDA</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" x="396" y="257">GPIO 33 ← → DERECHA</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#d94f4f" x="396" y="270">GPIO 26 ← A  confirmar</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#c07820" x="396" y="283">GPIO 27 ← B  cancelar</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#a78bfa" x="396" y="296">GPIO 14 ← X  especial</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4ade80" x="396" y="309">GPIO 13 ← Y  menú</text>
+<line x1="396" y1="317" x2="582" y2="317" stroke="#1a2a42" stroke-width=".6"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4ade80" x="396" y="330">GPIO 25 → DAC audio</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" x="396" y="343">GPIO 0  BOOT · GPIO 1 TX</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" x="396" y="356">GPIO 3  RX · USB serial</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" x="396" y="369">EEPROM → diario emocional</text>
+<!-- Wire VIN -->
+<line x1="384" y1="72" x2="360" y2="72" stroke="#a78bfa" stroke-width="1.8" marker-start="url(#s3)"/>
+<!-- TFT pines -->
+<rect x="650" y="36" width="140" height="200" rx="8" fill="#111e32" stroke="#00d4aa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#00d4aa" text-anchor="middle" x="720" y="62">TFT ILI9341</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" text-anchor="middle" x="720" y="76">240×320 · SPI</text>
+<line x1="660" y1="84" x2="780" y2="84" stroke="#1a2a42" stroke-width=".6"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#4d9fff" x="660" y="96">VCC  → 3V3</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" x="660" y="109">GND  → GND</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="122">SCK  ← GPIO 18</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="135">MOSI ← GPIO 23</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="148">CS   ← GPIO 15</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="161">DC   ← GPIO 2</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="174">RST  ← GPIO 4</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="187">T_CS ← GPIO 21</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#00d4aa" x="660" y="200">TIRQ → GPIO 22</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#4d9fff" x="660" y="213">LED  → 3V3</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" x="660" y="226">3.3V · SPI 40MHz · XPT2046</text>
+<!-- wires TFT -->
+<line x1="592" y1="120" x2="648" y2="120" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s4)"/>
+<line x1="592" y1="133" x2="648" y2="133" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s4)"/>
+<line x1="592" y1="146" x2="648" y2="146" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s4)"/>
+<line x1="592" y1="159" x2="648" y2="159" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s4)"/>
+<line x1="592" y1="172" x2="648" y2="172" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s4)"/>
+<line x1="592" y1="185" x2="648" y2="185" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s4)"/>
+<line x1="592" y1="198" x2="648" y2="198" stroke="#00d4aa" stroke-width="1.2" marker-end="url(#s5)"/>
+<!-- Botones mini -->
+<rect x="650" y="256" width="58" height="26" rx="5" fill="#111e32" stroke="#4d9fff" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" text-anchor="middle" x="679" y="273">↑G34  ↓G35</text>
+<rect x="716" y="256" width="58" height="26" rx="5" fill="#111e32" stroke="#4d9fff" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" text-anchor="middle" x="745" y="273">←G32  →G33</text>
+<rect x="650" y="292" width="58" height="26" rx="5" fill="#111e32" stroke="#d94f4f" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#d94f4f" text-anchor="middle" x="679" y="309">A G26  B G27</text>
+<rect x="716" y="292" width="58" height="26" rx="5" fill="#111e32" stroke="#a78bfa" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#a78bfa" text-anchor="middle" x="745" y="309">X G14  Y G13</text>
+<line x1="650" y1="269" x2="624" y2="269" stroke="#4d9fff" stroke-width=".8" stroke-dasharray="4 2" marker-end="url(#s4)"/>
+<line x1="650" y1="305" x2="624" y2="305" stroke="#4d9fff" stroke-width=".8" stroke-dasharray="4 2" marker-end="url(#s4)"/>
+<!-- PAM8302 -->
+<rect x="246" y="302" width="100" height="72" rx="8" fill="#111e32" stroke="#4ade80" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#4ade80" text-anchor="middle" x="296" y="328">PAM8302</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" text-anchor="middle" x="296" y="342">IN: GPIO 25</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6e80a0" text-anchor="middle" x="296" y="355">VDD: 5V</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="296" y="366">OUT → Speaker 8Ω</text>
+<path d="M386 330 L358 330 L358 340 L348 340" fill="none" stroke="#4ade80" stroke-width="1.2" marker-end="url(#s5)"/>
+<!-- Speaker -->
+<circle cx="160" cy="355" r="32" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+<circle cx="160" cy="355" r="17" fill="none" stroke="#4ade80" stroke-width="1"/>
+<circle cx="160" cy="355" r="6" fill="#4ade80" opacity=".28"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ade80" text-anchor="middle" x="160" y="396">8Ω · 0.5W</text>
+<line x1="246" y1="350" x2="194" y2="350" stroke="#4ade80" stroke-width="1.5" marker-end="url(#s5)"/>
+<!-- GND bus -->
+<line x1="12" y1="400" x2="800" y2="400" stroke="#2a3a56" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#2a3a56" x="808" y="404">GND</text>
+<line x1="41" y1="98" x2="41" y2="398" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="159" y1="256" x2="159" y2="398" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="299" y1="156" x2="299" y2="398" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="296" y1="374" x2="296" y2="398" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="160" y1="387" x2="160" y2="398" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+<line x1="700" y1="360" x2="700" y2="398" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 2"/>
+</svg></div>
+
+<div class="grid2" style="margin-top:16px">
+<div class="pin-card">
+<div class="pin-hdr" style="border-left:3px solid var(--teal)"><div style="width:8px;height:8px;border-radius:50%;background:var(--teal)"></div>TFT ILI9341 — SPI</div>
+<table><thead><tr><th>Pin TFT</th><th>→ ESP32</th><th>Función</th></tr></thead><tbody>
+<tr><td class="mono">VCC</td><td class="mono">3V3</td><td class="muted">Alimentación 3.3V</td></tr>
+<tr><td class="mono">GND</td><td class="mono">GND</td><td class="muted">Tierra común</td></tr>
+<tr><td class="mono">SCK</td><td class="mono">GPIO 18</td><td class="muted">SPI Clock</td></tr>
+<tr><td class="mono">MOSI/SDI</td><td class="mono">GPIO 23</td><td class="muted">SPI Datos</td></tr>
+<tr><td class="mono">CS</td><td class="mono">GPIO 15</td><td class="muted">Chip Select</td></tr>
+<tr><td class="mono">DC/RS</td><td class="mono">GPIO 2</td><td class="muted">Data/Command</td></tr>
+<tr><td class="mono">RST</td><td class="mono">GPIO 4</td><td class="muted">Reset pantalla</td></tr>
+<tr><td class="mono">LED</td><td class="mono">3V3</td><td class="muted">Backlight siempre ON</td></tr>
+<tr><td class="mono">T_CS</td><td class="mono">GPIO 21</td><td class="muted">Touch Chip Select</td></tr>
+<tr><td class="mono">T_IRQ</td><td class="mono">GPIO 22</td><td class="muted">Touch Interrupt</td></tr>
+</tbody></table></div>
+<div class="pin-card">
+<div class="pin-hdr" style="border-left:3px solid var(--amber)"><div style="width:8px;height:8px;border-radius:50%;background:var(--amber)"></div>Sistema de Energía</div>
+<table><thead><tr><th>Desde</th><th>→ Hacia</th><th>Señal</th></tr></thead><tbody>
+<tr><td class="muted">USB-C +</td><td class="mono">TP4056 IN+</td><td class="mono" style="color:var(--coral)">5V carga</td></tr>
+<tr><td class="muted">USB-C −</td><td class="mono">TP4056 IN−</td><td class="mono" style="color:var(--faint)">GND</td></tr>
+<tr><td class="muted">TP4056 B+</td><td class="mono">Batería +</td><td class="mono" style="color:var(--amber)">3.7V carga</td></tr>
+<tr><td class="muted">TP4056 OUT+</td><td class="mono">MT3608 VIN+</td><td class="mono" style="color:var(--amber)">3.7V in</td></tr>
+<tr><td class="muted">MT3608 OUT</td><td class="mono">ESP32 VIN</td><td class="mono" style="color:var(--purple)">5V estable</td></tr>
+<tr><td class="muted">ESP32 3V3</td><td class="mono">TFT VCC+LED</td><td class="mono" style="color:var(--blue)">3.3V out</td></tr>
+<tr><td class="muted">GPIO 25</td><td class="mono">PAM8302 IN</td><td class="mono" style="color:var(--green)">DAC Audio</td></tr>
+<tr><td class="muted">PAM8302 OUT+</td><td class="mono">Speaker +</td><td class="mono" style="color:var(--green)">Audio amp</td></tr>
+<tr><td class="muted">Todos los GND</td><td class="mono">GND común</td><td class="mono" style="color:var(--faint)">Bus GND</td></tr>
+</tbody></table></div>
+<div class="pin-card">
+<div class="pin-hdr" style="border-left:3px solid var(--blue)"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue)"></div>D-PAD — Flechas (PLA azul)</div>
+<table><thead><tr><th>Botón</th><th>→ GPIO</th><th>Función</th></tr></thead><tbody>
+<tr><td>▲ Arriba</td><td class="mono" style="color:var(--blue)">GPIO 34</td><td class="muted">Navegar arriba</td></tr>
+<tr><td>▼ Abajo</td><td class="mono" style="color:var(--blue)">GPIO 35</td><td class="muted">Navegar abajo</td></tr>
+<tr><td>◀ Izquierda</td><td class="mono" style="color:var(--blue)">GPIO 32</td><td class="muted">Navegar izquierda</td></tr>
+<tr><td>▶ Derecha</td><td class="mono" style="color:var(--blue)">GPIO 33</td><td class="muted">Navegar derecha</td></tr>
+</tbody></table>
+<div class="tip tip-t" style="margin-top:8px;font-size:.78rem"><strong>INPUT_PULLUP</strong> interno. Solo 2 cables por botón: GPIO + GND. Sin resistencias externas.</div>
+</div>
+<div class="pin-card">
+<div class="pin-hdr" style="border-left:3px solid var(--purple)"><div style="width:8px;height:8px;border-radius:50%;background:var(--purple)"></div>Botones ABXY — Acción</div>
+<table><thead><tr><th>Botón</th><th>→ GPIO</th><th>Color PLA</th></tr></thead><tbody>
+<tr><td style="color:#d94f4f;font-weight:600">A Confirmar</td><td class="mono" style="color:#d94f4f">GPIO 26</td><td><span class="chip c-c">Coral</span></td></tr>
+<tr><td style="color:#c07820;font-weight:600">B Cancelar</td><td class="mono" style="color:#c07820">GPIO 27</td><td><span class="chip c-a">Ámbar</span></td></tr>
+<tr><td style="color:#a78bfa;font-weight:600">X Especial</td><td class="mono" style="color:#a78bfa">GPIO 14</td><td><span class="chip c-p">Púrpura</span></td></tr>
+<tr><td style="color:#4ade80;font-weight:600">Y Menú</td><td class="mono" style="color:#4ade80">GPIO 13</td><td><span class="chip c-g">Verde</span></td></tr>
+</tbody></table></div>
+</div>
+</section>
+
+<section class="sec" id="cableado">
+<div class="ey">Sección 04</div><div class="st">Cableado Físico en Protoboard</div>
+<div class="sd">Diagrama codificado por color para armar el prototipo sin soldar. Cada color corresponde a una función. Usa cables Dupont 20cm.</div>
+<div class="dbox"><div class="dtitle">Protoboard 400pts — conexiones Dupont codificadas por color</div>
+<svg width="100%" viewBox="0 0 940 560" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="d1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="d2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#4d9fff" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="d3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round"/></marker>
+<marker id="d4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/></marker>
+</defs>
+<!-- Protoboard base -->
+<rect x="14" y="18" width="912" height="516" rx="10" fill="#142010" stroke="#1e3018" stroke-width="2"/>
+<rect x="28" y="30" width="884" height="488" rx="7" fill="#19290f" stroke="#1e3018" stroke-width="1"/>
+<!-- VCC rail -->
+<rect x="28" y="30" width="884" height="10" rx="3" fill="#0d1e0a"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#1a3010" text-anchor="middle" x="470" y="39">+ VCC BUS (3V3 / 5V)</text>
+<!-- GND rail -->
+<rect x="28" y="500" width="884" height="10" rx="3" fill="#0d1e0a"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#1a3010" text-anchor="middle" x="470" y="509">− GND BUS</text>
+<!-- Centro sep -->
+<rect x="28" y="264" width="884" height="6" rx="2" fill="#101a0d"/>
+
+<!-- ESP32 -->
+<rect x="356" y="86" width="130" height="206" rx="6" fill="#1a2238" stroke="#4d9fff" stroke-width="2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#4d9fff" text-anchor="middle" x="421" y="108">ESP32</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="421" y="120">DevKit V1</text>
+<!-- Pines izq labeleados -->
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4d9fff" x="260" y="147">3V3</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#2a3a56" x="260" y="159">GND</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#a78bfa" x="258" y="171">VIN 5V</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" x="252" y="183">G18 SCK</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" x="248" y="195">G23 MOSI</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" x="252" y="207">G15 CS</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" x="255" y="219">G2 DC</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" x="252" y="231">G4 RST</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#00d4aa" x="248" y="243">G21 T_CS</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4ade80" x="248" y="255">G25 DAC</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4d9fff" x="255" y="267">G34 ↑</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4d9fff" x="255" y="279">G35 ↓</text>
+<!-- Pines der -->
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4d9fff" x="492" y="147">3V3-b</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#2a3a56" x="492" y="159">GND-b</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4d9fff" x="492" y="171">G32 ←</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4d9fff" x="492" y="183">G33 →</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#d94f4f" x="492" y="195">G26 A</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#c07820" x="492" y="207">G27 B</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#a78bfa" x="492" y="219">G14 X</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#4ade80" x="492" y="231">G13 Y</text>
+<!-- Pines lines izq -->
+<line x1="354" y1="144" x2="340" y2="144" stroke="#4d9fff" stroke-width="1.5"/>
+<line x1="354" y1="156" x2="340" y2="156" stroke="#2a3a56" stroke-width="1.5"/>
+<line x1="354" y1="168" x2="340" y2="168" stroke="#a78bfa" stroke-width="1.5"/>
+<line x1="354" y1="180" x2="340" y2="180" stroke="#00d4aa" stroke-width="1.5"/>
+<line x1="354" y1="192" x2="340" y2="192" stroke="#00d4aa" stroke-width="1.5"/>
+<line x1="354" y1="204" x2="340" y2="204" stroke="#00d4aa" stroke-width="1.5"/>
+<line x1="354" y1="216" x2="340" y2="216" stroke="#00d4aa" stroke-width="1.5"/>
+<line x1="354" y1="228" x2="340" y2="228" stroke="#00d4aa" stroke-width="1.5"/>
+<line x1="354" y1="240" x2="340" y2="240" stroke="#00d4aa" stroke-width="1.5"/>
+<line x1="354" y1="252" x2="340" y2="252" stroke="#4ade80" stroke-width="1.5"/>
+<line x1="354" y1="264" x2="340" y2="264" stroke="#4d9fff" stroke-width="1.5"/>
+<line x1="354" y1="276" x2="340" y2="276" stroke="#4d9fff" stroke-width="1.5"/>
+<!-- Pines lines der -->
+<line x1="486" y1="144" x2="500" y2="144" stroke="#4d9fff" stroke-width="1.5"/>
+<line x1="486" y1="156" x2="500" y2="156" stroke="#2a3a56" stroke-width="1.5"/>
+<line x1="486" y1="168" x2="500" y2="168" stroke="#4d9fff" stroke-width="1.5"/>
+<line x1="486" y1="180" x2="500" y2="180" stroke="#4d9fff" stroke-width="1.5"/>
+<line x1="486" y1="192" x2="500" y2="192" stroke="#d94f4f" stroke-width="1.5"/>
+<line x1="486" y1="204" x2="500" y2="204" stroke="#c07820" stroke-width="1.5"/>
+<line x1="486" y1="216" x2="500" y2="216" stroke="#a78bfa" stroke-width="1.5"/>
+<line x1="486" y1="228" x2="500" y2="228" stroke="#4ade80" stroke-width="1.5"/>
+
+<!-- TFT Display -->
+<rect x="48" y="70" width="90" height="136" rx="6" fill="#060e1a" stroke="#00d4aa" stroke-width="2"/>
+<rect x="54" y="76" width="78" height="94" rx="4" fill="#0a1428"/>
+<circle cx="93" cy="120" r="17" fill="#f5c842" opacity=".8"/>
+<circle cx="87" cy="116" r="3" fill="#0a1428"/><circle cx="99" cy="116" r="3" fill="#0a1428"/>
+<path d="M85 126 Q93 133 101 126" fill="none" stroke="#0a1428" stroke-width="1.5" stroke-linecap="round"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" text-anchor="middle" x="93" y="190">TFT 2.4"</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#6e80a0" text-anchor="middle" x="93" y="200">ILI9341</text>
+
+<!-- Cables TFT → ESP32 (SPI, teal) -->
+<path d="M138 88 L164 88 L164 180 L340 180" fill="none" stroke="#00d4aa" stroke-width="1.5"/>
+<path d="M138 98 L168 98 L168 192 L340 192" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6 2"/>
+<path d="M138 108 L172 108 L172 204 L340 204" fill="none" stroke="#00d4aa" stroke-width="1.5"/>
+<path d="M138 118 L176 118 L176 216 L340 216" fill="none" stroke="#00d4aa" stroke-width="1.5" stroke-dasharray="6 2"/>
+<path d="M138 128 L180 128 L180 228 L340 228" fill="none" stroke="#00d4aa" stroke-width="1.5"/>
+<path d="M138 80 L160 80 L160 144 L340 144" fill="none" stroke="#4d9fff" stroke-width="1.5"/>
+<path d="M138 148 L156 148 L156 156 L340 156" fill="none" stroke="#2a3a56" stroke-width="1.5"/>
+
+<!-- TP4056 -->
+<rect x="48" y="340" width="80" height="54" rx="6" fill="#111e32" stroke="#ff6060" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#ff6060" text-anchor="middle" x="88" y="363">TP4056</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="88" y="376">Carga Li-Po</text>
+<rect x="52" y="406" width="72" height="26" rx="4" fill="#111e32" stroke="#ff6060" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#ff6060" text-anchor="middle" x="88" y="422">USB-C 5V</text>
+<line x1="88" y1="394" x2="88" y2="404" stroke="#ff6060" stroke-width="1.5"/>
+
+<!-- MT3608 -->
+<rect x="186" y="340" width="80" height="54" rx="6" fill="#111e32" stroke="#a78bfa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#a78bfa" text-anchor="middle" x="226" y="363">MT3608</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="226" y="376">3.7→5V</text>
+
+<!-- Batería -->
+<rect x="128" y="340" width="52" height="54" rx="6" fill="#111e32" stroke="#ffb84d" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#ffb84d" text-anchor="middle" x="154" y="362">Li-Po</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#ffb84d" text-anchor="middle" x="154" y="374">3.7V</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="154" y="385">2Ah</text>
+<line x1="138" y1="362" x2="128" y2="362" stroke="#ffb84d" stroke-width="1.8"/>
+<line x1="180" y1="362" x2="186" y2="362" stroke="#ffb84d" stroke-width="1.8"/>
+<!-- MT3608 → VIN ESP32 -->
+<path d="M266 362 L334 362 L334 168 L354 168" fill="none" stroke="#a78bfa" stroke-width="1.8"/>
+
+<!-- PAM8302 -->
+<rect x="572" y="340" width="80" height="54" rx="6" fill="#111e32" stroke="#4ade80" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#4ade80" text-anchor="middle" x="612" y="363">PAM8302</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="612" y="376">Amplif.</text>
+<!-- GPIO25 → PAM -->
+<path d="M340 252 L330 252 L330 366 L572 366" fill="none" stroke="#4ade80" stroke-width="1.8"/>
+
+<!-- Speaker -->
+<circle cx="738" cy="374" r="40" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+<circle cx="738" cy="374" r="22" fill="none" stroke="#4ade80" stroke-width="1"/>
+<circle cx="738" cy="374" r="8" fill="#4ade80" opacity=".18"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4ade80" text-anchor="middle" x="738" y="426">Speaker 8Ω</text>
+<line x1="652" y1="370" x2="696" y2="370" stroke="#4ade80" stroke-width="1.8"/>
+
+<!-- D-PAD buttons -->
+<rect x="614" y="72" width="34" height="28" rx="5" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="631" y="86">▲</text>
+<rect x="658" y="72" width="34" height="28" rx="5" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="675" y="86">▼</text>
+<rect x="702" y="72" width="34" height="28" rx="5" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="719" y="86">◀</text>
+<rect x="746" y="72" width="34" height="28" rx="5" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="763" y="86">▶</text>
+<!-- D-PAD → ESP32 -->
+<path d="M614 86 L550 86 L550 264 L500 264" fill="none" stroke="#4d9fff" stroke-width="1.5"/>
+<path d="M658 86 L546 86 L546 276 L500 276" fill="none" stroke="#4d9fff" stroke-width="1.5" stroke-dasharray="6 2"/>
+<path d="M702 86 L542 86 L542 168 L500 168" fill="none" stroke="#4d9fff" stroke-width="1.5"/>
+<path d="M746 86 L538 86 L538 180 L500 180" fill="none" stroke="#4d9fff" stroke-width="1.5" stroke-dasharray="6 2"/>
+
+<!-- ABXY buttons -->
+<rect x="614" y="128" width="34" height="28" rx="5" fill="#d94f4f" stroke="#ff6060" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="631" y="142">A</text>
+<rect x="658" y="128" width="34" height="28" rx="5" fill="#c07820" stroke="#ffb84d" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="675" y="142">B</text>
+<rect x="702" y="128" width="34" height="28" rx="5" fill="#7c5cbf" stroke="#a78bfa" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="719" y="142">X</text>
+<rect x="746" y="128" width="34" height="28" rx="5" fill="#2d9e58" stroke="#4ade80" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="763" y="142">Y</text>
+<!-- ABXY → ESP32 -->
+<path d="M614 142 L534 142 L534 192 L500 192" fill="none" stroke="#d94f4f" stroke-width="1.5"/>
+<path d="M658 142 L530 142 L530 204 L500 204" fill="none" stroke="#c07820" stroke-width="1.5"/>
+<path d="M702 142 L526 142 L526 216 L500 216" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+<path d="M746 142 L522 142 L522 228 L500 228" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+
+<!-- GND drops (dashed) -->
+<line x1="421" y1="292" x2="421" y2="502" stroke="#2a3a56" stroke-width=".8" stroke-dasharray="3 3"/>
+<line x1="88" y1="394" x2="88" y2="502" stroke="#2a3a56" stroke-width=".8" stroke-dasharray="3 3"/>
+<line x1="631" y1="100" x2="631" y2="502" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 3"/>
+<line x1="675" y1="100" x2="675" y2="502" stroke="#2a3a56" stroke-width=".6" stroke-dasharray="3 3"/>
+
+<!-- Leyenda -->
+<rect x="38" y="450" width="860" height="40" rx="6" fill="#0d1626" stroke="#1a2a42" stroke-width="1"/>
+<line x1="50" y1="470" x2="76" y2="470" stroke="#00d4aa" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="80" y="474">SPI/TFT (teal)</text>
+<line x1="168" y1="470" x2="194" y2="470" stroke="#4d9fff" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="198" y="474">D-Pad GPIO (azul)</text>
+<line x1="306" y1="470" x2="332" y2="470" stroke="#d94f4f" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="336" y="474">A (coral)</text>
+<line x1="402" y1="470" x2="428" y2="470" stroke="#c07820" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="432" y="474">B (ámbar)</text>
+<line x1="498" y1="470" x2="524" y2="470" stroke="#a78bfa" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="528" y="474">X/Boost (púrp.)</text>
+<line x1="626" y1="470" x2="652" y2="470" stroke="#4ade80" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="656" y="474">Y/Audio (verde)</text>
+<line x1="742" y1="470" x2="768" y2="470" stroke="#ffb84d" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="772" y="474">Batería (naranja)</text>
+<line x1="50" y1="484" x2="76" y2="484" stroke="#2a3a56" stroke-width="2.5" stroke-dasharray="5 2"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="80" y="488">GND (negro dash)</text>
+<line x1="212" y1="484" x2="238" y2="484" stroke="#ff6060" stroke-width="2.5"/><text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="242" y="488">USB/Carga (rojo)</text>
+</svg></div>
+<div class="wleg">
+<div class="wl"><div class="wln" style="background:#00d4aa"></div>SPI / TFT (teal)</div>
+<div class="wl"><div class="wln" style="background:#4d9fff"></div>D-Pad GPIOs (azul)</div>
+<div class="wl"><div class="wln" style="background:#d94f4f"></div>Botón A (coral)</div>
+<div class="wl"><div class="wln" style="background:#c07820"></div>Botón B (ámbar)</div>
+<div class="wl"><div class="wln" style="background:#a78bfa"></div>Botón X / MT3608 (púrpura)</div>
+<div class="wl"><div class="wln" style="background:#4ade80"></div>Botón Y / Audio (verde)</div>
+<div class="wl"><div class="wln" style="background:#ffb84d"></div>Batería (naranja)</div>
+<div class="wl"><div class="wln" style="background:#ff6060"></div>USB / Carga (rojo)</div>
+<div class="wl"><div class="wln" style="background:#2a3a56"></div>GND (negro)</div>
+</div>
+</section>
+
+<section class="sec" id="botones">
+<div class="ey">Sección 05</div><div class="st">Botones 3D — Diseño, Colores y Montaje</div>
+<div class="sd">Los 8 botones físicos: interruptores 6×6mm con caps impresos en 3D. D-Pad en azul, ABXY en 4 colores distintos. Toca para simular la pulsación.</div>
+<div class="btns">
+<div class="btn3"><div class="bcap" style="background:#2d7dd6;border-bottom:6px solid #1a5a9e">▲</div><div class="blbl">ARRIBA</div><div class="bgpio">GPIO 34</div></div>
+<div class="btn3"><div class="bcap" style="background:#2d7dd6;border-bottom:6px solid #1a5a9e">▼</div><div class="blbl">ABAJO</div><div class="bgpio">GPIO 35</div></div>
+<div class="btn3"><div class="bcap" style="background:#2d7dd6;border-bottom:6px solid #1a5a9e">◀</div><div class="blbl">IZQUIERDA</div><div class="bgpio">GPIO 32</div></div>
+<div class="btn3"><div class="bcap" style="background:#2d7dd6;border-bottom:6px solid #1a5a9e">▶</div><div class="blbl">DERECHA</div><div class="bgpio">GPIO 33</div></div>
+<div class="btn3"><div class="bcap" style="background:#d94f4f;border-bottom:6px solid #a03030;font-size:20px">A</div><div class="blbl">CONFIRMAR</div><div class="bgpio">GPIO 26</div></div>
+<div class="btn3"><div class="bcap" style="background:#c07820;border-bottom:6px solid #8a5010;font-size:20px">B</div><div class="blbl">CANCELAR</div><div class="bgpio">GPIO 27</div></div>
+<div class="btn3"><div class="bcap" style="background:#7c5cbf;border-bottom:6px solid #543d8f;font-size:20px">X</div><div class="blbl">ESPECIAL</div><div class="bgpio">GPIO 14</div></div>
+<div class="btn3"><div class="bcap" style="background:#2d9e58;border-bottom:6px solid #1d6b3a;font-size:20px">Y</div><div class="blbl">MENÚ</div><div class="bgpio">GPIO 13</div></div>
+</div>
+<div class="grid2" style="margin-top:6px">
+<div class="card">
+<div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--amber);margin-bottom:10px">ESPECIFICACIONES CAP 3D</div>
+<table><tbody>
+<tr><td>Base del cap</td><td class="mono">14 × 14 mm</td></tr>
+<tr><td>Altura total</td><td class="mono">8 mm</td></tr>
+<tr><td>Vástago interno</td><td class="mono">3.5 × 3.5 × 3 mm</td></tr>
+<tr><td>Tipo ajuste</td><td class="mono">Presión snug-fit</td></tr>
+<tr><td>Flecha triángulo</td><td class="mono">10 × 8 × 1.5 mm</td></tr>
+<tr><td>Letra ABXY relieve</td><td class="mono">h: 1.0 mm</td></tr>
+<tr><td>Material</td><td class="mono">PLA estándar</td></tr>
+<tr><td>Temp. extrusión</td><td class="mono">200–210°C</td></tr>
+<tr><td>Relleno caps</td><td class="mono">60% Gyroid</td></tr>
+<tr><td>Capa caps</td><td class="mono">0.15 mm</td></tr>
+<tr><td>Brim adhesión</td><td class="mono">5 mm</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--blue);margin-bottom:12px">CIRCUITO POR BOTÓN — sin resistencias externas</div>
+<svg width="100%" viewBox="0 0 520 110" style="display:block;max-width:520px;margin:0 auto">
+<rect x="10" y="34" width="82" height="42" rx="6" fill="#111e32" stroke="#4d9fff" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#4d9fff" text-anchor="middle" x="51" y="52">ESP32</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="51" y="65">GPIO_XX</text>
+<line x1="78" y1="55" x2="78" y2="18" stroke="#4d9fff" stroke-width=".8" stroke-dasharray="3 2"/>
+<line x1="68" y1="12" x2="88" y2="12" stroke="#4d9fff" stroke-width=".8"/>
+<line x1="70" y1="8" x2="86" y2="8" stroke="#4d9fff" stroke-width=".6"/>
+<line x1="73" y1="4" x2="83" y2="4" stroke="#4d9fff" stroke-width=".4"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="78" y="2">3.3V</text>
+<line x1="92" y1="55" x2="148" y2="55" stroke="#4d9fff" stroke-width="1.5"/>
+<rect x="148" y="36" width="68" height="38" rx="5" fill="#2d7dd6" stroke="#4d9fff" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8.5" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="central" x="182" y="55">SW</text>
+<line x1="216" y1="55" x2="272" y2="55" stroke="#2a3a56" stroke-width="1.5"/>
+<line x1="272" y1="42" x2="272" y2="68" stroke="#2a3a56" stroke-width="1.5"/>
+<line x1="264" y1="50" x2="280" y2="50" stroke="#2a3a56" stroke-width="1.2"/>
+<line x1="267" y1="58" x2="277" y2="58" stroke="#2a3a56" stroke-width="1"/>
+<line x1="269" y1="66" x2="275" y2="66" stroke="#2a3a56" stroke-width=".8"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#2a3a56" text-anchor="middle" x="272" y="80">GND</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#4d9fff" text-anchor="middle" x="120" y="26">Reposo = HIGH (3.3V)</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#d94f4f" text-anchor="middle" x="120" y="100">Pulsado = LOW (0V → GND)</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="310" y="36">Sin resistencia externa</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="310" y="50">INPUT_PULLUP en setup()</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#6e80a0" x="310" y="64">Solo 2 cables por botón:</text>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#4d9fff" x="310" y="82">GPIO + GND</text>
+</svg>
+</div>
+</div>
+</section>
+
+<!-- S6 PCB -->
+<section class="sec" id="pcb">
+<div class="ey">Sección 06</div><div class="st">Layout PCB — Disposición de Componentes</div>
+<div class="sd">Vista superior del PCB para fabricación (JLCPCB / PCBWay). 100×75mm · FR4 1.6mm · 2 capas · GND plane en BOTTOM.</div>
+<div class="dbox"><div class="dtitle">PCB Layout — vista TOP · escala orientativa</div>
+<svg width="100%" viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
+<rect x="30" y="18" width="700" height="432" rx="10" fill="#0d2b0d" stroke="#1a5c1a" stroke-width="2"/>
+<circle cx="50" cy="38" r="5.5" fill="none" stroke="#1a5c1a" stroke-width="1"/>
+<circle cx="710" cy="38" r="5.5" fill="none" stroke="#1a5c1a" stroke-width="1"/>
+<circle cx="50" cy="430" r="5.5" fill="none" stroke="#1a5c1a" stroke-width="1"/>
+<circle cx="710" cy="430" r="5.5" fill="none" stroke="#1a5c1a" stroke-width="1"/>
+<!-- 5V rail -->
+<line x1="40" y1="28" x2="720" y2="28" stroke="#a78bfa" stroke-width="1.5" opacity=".5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#3a1a6a" x="44" y="27">5V RAIL</text>
+<!-- GND plane -->
+<rect x="40" y="438" width="680" height="6" rx="2" fill="none" stroke="#1a5c1a" stroke-width=".8" stroke-dasharray="6 3"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" fill="#1a4a1a" text-anchor="middle" x="380" y="450">GND PLANE — capa BOTTOM</text>
+<!-- TFT header -->
+<rect x="44" y="52" width="120" height="28" rx="4" fill="#0f3a0f" stroke="#00d4aa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#00d4aa" text-anchor="middle" x="104" y="69">HDR-TFT J3 · 10 pines</text>
+<line x1="54" y1="80" x2="54" y2="86" stroke="#00d4aa" stroke-width="1"/><line x1="65" y1="80" x2="65" y2="86" stroke="#00d4aa" stroke-width="1"/>
+<line x1="76" y1="80" x2="76" y2="86" stroke="#00d4aa" stroke-width="1"/><line x1="87" y1="80" x2="87" y2="86" stroke="#00d4aa" stroke-width="1"/>
+<line x1="98" y1="80" x2="98" y2="86" stroke="#00d4aa" stroke-width="1"/><line x1="109" y1="80" x2="109" y2="86" stroke="#00d4aa" stroke-width="1"/>
+<line x1="120" y1="80" x2="120" y2="86" stroke="#00d4aa" stroke-width="1"/><line x1="131" y1="80" x2="131" y2="86" stroke="#00d4aa" stroke-width="1"/>
+<line x1="142" y1="80" x2="142" y2="86" stroke="#00d4aa" stroke-width="1"/><line x1="153" y1="80" x2="153" y2="86" stroke="#00d4aa" stroke-width="1"/>
+<!-- ESP32 -->
+<rect x="216" y="138" width="234" height="192" rx="7" fill="#0f2038" stroke="#4d9fff" stroke-width="2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700" fill="#4d9fff" text-anchor="middle" x="333" y="165">ESP32</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#4d9fff" text-anchor="middle" x="333" y="178">DevKit V1</text>
+<!-- Pads izq -->
+<rect x="206" y="148" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="159" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="206" y="170" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="181" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="206" y="192" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="203" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="206" y="214" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="225" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="206" y="236" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="247" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="206" y="258" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="269" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="206" y="280" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="206" y="291" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<!-- Pads der -->
+<rect x="450" y="148" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="450" y="159" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="450" y="170" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="450" y="181" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="450" y="192" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="450" y="203" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="450" y="214" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="450" y="225" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<rect x="450" y="236" width="9" height="7" rx="1" fill="#2a5c2a"/><rect x="450" y="247" width="9" height="7" rx="1" fill="#2a5c2a"/>
+<!-- TP4056 -->
+<rect x="44" y="196" width="80" height="56" rx="5" fill="#2a1010" stroke="#ff6060" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#ff6060" text-anchor="middle" x="84" y="222">TP4056</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="84" y="236">U2</text>
+<!-- MT3608 -->
+<rect x="134" y="196" width="70" height="56" rx="5" fill="#1a1030" stroke="#a78bfa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#a78bfa" text-anchor="middle" x="169" y="222">MT3608</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="169" y="236">U3</text>
+<!-- Inductor -->
+<ellipse cx="146" cy="172" rx="13" ry="9" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+<ellipse cx="166" cy="172" rx="13" ry="9" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa" text-anchor="middle" x="156" y="158">L1 4.7µH</text>
+<!-- Capacitors -->
+<rect x="44" y="152" width="22" height="12" rx="2" fill="#1a300a" stroke="#4ade80" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6" fill="#4ade80" text-anchor="middle" x="55" y="161">100µF</text>
+<rect x="72" y="152" width="18" height="12" rx="2" fill="#1a300a" stroke="#4ade80" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="6" fill="#4ade80" text-anchor="middle" x="81" y="161">10µF</text>
+<!-- USB-C -->
+<rect x="44" y="330" width="60" height="26" rx="4" fill="#2a0a0a" stroke="#ff6060" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#ff6060" text-anchor="middle" x="74" y="346">USB-C J1</text>
+<!-- JST -->
+<rect x="44" y="294" width="60" height="26" rx="4" fill="#1a2a00" stroke="#ffb84d" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#ffb84d" text-anchor="middle" x="74" y="310">JST-PH J2</text>
+<!-- PAM8302 -->
+<rect x="134" y="290" width="70" height="44" rx="5" fill="#0a2a10" stroke="#4ade80" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="8" font-weight="700" fill="#4ade80" text-anchor="middle" x="169" y="314">PAM8302</text>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#6e80a0" text-anchor="middle" x="169" y="327">U4</text>
+<!-- SPK header -->
+<rect x="134" y="342" width="50" height="22" rx="4" fill="#0a2a10" stroke="#4ade80" stroke-width="1"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#4ade80" text-anchor="middle" x="159" y="356">J4 SPK</text>
+<!-- Botones D-PAD -->
+<rect x="526" y="96" width="28" height="24" rx="4" fill="#0a1a30" stroke="#4d9fff" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#4d9fff" text-anchor="middle" dominant-baseline="central" x="540" y="108">▲</text>
+<rect x="490" y="130" width="28" height="24" rx="4" fill="#0a1a30" stroke="#4d9fff" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#4d9fff" text-anchor="middle" dominant-baseline="central" x="504" y="142">◀</text>
+<rect x="562" y="130" width="28" height="24" rx="4" fill="#0a1a30" stroke="#4d9fff" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#4d9fff" text-anchor="middle" dominant-baseline="central" x="576" y="142">▶</text>
+<rect x="526" y="164" width="28" height="24" rx="4" fill="#0a1a30" stroke="#4d9fff" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#4d9fff" text-anchor="middle" dominant-baseline="central" x="540" y="176">▼</text>
+<!-- ABXY -->
+<rect x="616" y="104" width="28" height="24" rx="4" fill="#1a0820" stroke="#a78bfa" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#a78bfa" text-anchor="middle" dominant-baseline="central" x="630" y="116">X</text>
+<rect x="654" y="132" width="28" height="24" rx="4" fill="#200808" stroke="#d94f4f" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#d94f4f" text-anchor="middle" dominant-baseline="central" x="668" y="144">A</text>
+<rect x="616" y="160" width="28" height="24" rx="4" fill="#201000" stroke="#c07820" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#c07820" text-anchor="middle" dominant-baseline="central" x="630" y="172">B</text>
+<rect x="578" y="132" width="28" height="24" rx="4" fill="#0a200a" stroke="#4ade80" stroke-width="1.5"/>
+<text font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#4ade80" text-anchor="middle" dominant-baseline="central" x="592" y="144">Y</text>
+<!-- Traces SPI -->
+<line x1="164" y1="88" x2="216" y2="164" stroke="#00d4aa" stroke-width="1.2" opacity=".5" stroke-dasharray="3 2"/>
+<!-- VCC trace -->
+<line x1="44" y1="380" x2="450" y2="380" stroke="#a78bfa" stroke-width="1.2" opacity=".4"/>
+<text font-family="'JetBrains Mono',monospace" font-size="7" fill="#3a1a6a" text-anchor="middle" x="247" y="376">5V TRACE</text>
+<!-- Serigrafía -->
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#0d3a0d" x="44" y="396">U1-ESP32  U2-TP4056  U3-MT3608  U4-PAM8302  C1-100µF  C2-10µF  L1-4.7µH</text>
+<text font-family="'JetBrains Mono',monospace" font-size="6.5" fill="#0d3a0d" x="44" y="408">J1-USB-C  J2-BAT  J3-TFT  J4-SPK  SW1–SW8:6×6mm  PCB:100×75mm FR4 1.6mm</text>
+<!-- Dimensiones -->
+<line x1="30" y1="458" x2="730" y2="458" stroke="#1a5c1a" stroke-width=".8"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a5c1a" text-anchor="middle" x="380" y="470">100 mm</text>
+<line x1="742" y1="18" x2="742" y2="450" stroke="#1a5c1a" stroke-width=".8"/>
+<text font-family="'JetBrains Mono',monospace" font-size="9" fill="#1a5c1a" text-anchor="middle" x="754" y="234" transform="rotate(90,754,234)">75 mm</text>
+</svg></div>
+</section>
+
+<section class="sec" id="bom">
+<div class="ey">Sección 07</div><div class="st">Lista de Materiales (BOM)</div>
+<div class="sd">Todos los componentes del prototipo funcional completo. Referencias, especificaciones, función y precio estimado.</div>
+<div style="overflow-x:auto">
+<table style="background:var(--c);border-radius:14px;overflow:hidden">
+<thead><tr><th>#</th><th>Componente</th><th>Ref.</th><th>Especificación</th><th>Función en NOVA</th><th>Cant.</th><th>USD</th></tr></thead>
+<tbody>
+<tr><td class="mono">U1</td><td style="font-weight:600">ESP32 DevKit V1</td><td><span class="chip c-b">MCU</span></td><td class="muted">240MHz·520KB·Wi-Fi·USB</td><td class="muted">Cerebro: SW, pantalla, botones, audio, Wi-Fi OTA</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$4–7</td></tr>
+<tr><td class="mono">U2</td><td style="font-weight:600">TP4056 + DW01</td><td><span class="chip c-c">CARGA</span></td><td class="muted">Li-Po charger·USB-C·DW01 prot.</td><td class="muted">Carga segura. LEDs indicadores R=cargando / B=llena. Protección integrada</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$1–2</td></tr>
+<tr><td class="mono">U3</td><td style="font-weight:600">MT3608 Boost</td><td><span class="chip c-p">DC-DC</span></td><td class="muted">3.7V→5V·2A·ajustable</td><td class="muted">Eleva voltaje batería a 5V estables para el ESP32</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$1–2</td></tr>
+<tr><td class="mono">U4</td><td style="font-weight:600">PAM8302</td><td><span class="chip c-g">AUDIO</span></td><td class="muted">Amplif. mono·2.5W·DAC in</td><td class="muted">Amplifica GPIO 25 (DAC) para el parlante. VDD 5V</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$1–2</td></tr>
+<tr><td class="mono">DSP</td><td style="font-weight:600">TFT 2.4" ILI9341</td><td><span class="chip c-t">PANTALLA</span></td><td class="muted">240×320·SPI·Touch XPT2046</td><td class="muted">Muestra Lumi, menús, juegos y actividades emocionales. 16-bit color</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$6–10</td></tr>
+<tr><td class="mono">BT1</td><td style="font-weight:600">Batería Li-Po</td><td><span class="chip c-a">ENERGÍA</span></td><td class="muted">3.7V·2000mAh·JST-PH 2.0</td><td class="muted">Fuente portátil. ~6h autonomía con pantalla activa</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$5–8</td></tr>
+<tr><td class="mono">SPK</td><td style="font-weight:600">Parlante mini</td><td><span class="chip c-g">AUDIO</span></td><td class="muted">8Ω·0.5W·23mm</td><td class="muted">Sonidos Lumi, melodías, efectos de juegos y guías de audio</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$1–2</td></tr>
+<tr><td class="mono">SW1–4</td><td style="font-weight:600">Botón flecha 6×6mm</td><td><span class="chip c-b">CTRL</span></td><td class="muted">SPST-NO·through-hole</td><td class="muted">D-Pad ↑↓←→ — navegar menús y juegos</td><td class="mono">×4</td><td class="mono" style="color:var(--amber)">$0.5</td></tr>
+<tr><td class="mono">SW5–8</td><td style="font-weight:600">Botón ABXY 6×6mm</td><td><span class="chip c-p">CTRL</span></td><td class="muted">SPST-NO·through-hole</td><td class="muted">A=confirmar · B=cancelar · X=especial · Y=menú</td><td class="mono">×4</td><td class="mono" style="color:var(--amber)">$0.5</td></tr>
+<tr><td class="mono">CAP</td><td style="font-weight:600">Caps 3D impresos</td><td><span class="chip c-t">MECH</span></td><td class="muted">PLA·14×14×8mm·vástago 3.5mm</td><td class="muted">Flechas azul ×4 + A coral · B ámbar · X púrpura · Y verde</td><td class="mono">×8</td><td class="mono" style="color:var(--amber)">PLA</td></tr>
+<tr><td class="mono">C1</td><td style="font-weight:600">Cond. 100µF</td><td><span class="chip c-g">PASIVO</span></td><td class="muted">Electrolítico·16V</td><td class="muted">Desacoplo salida MT3608. Estabiliza los 5V</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$0.1</td></tr>
+<tr><td class="mono">C2</td><td style="font-weight:600">Cond. 10µF</td><td><span class="chip c-g">PASIVO</span></td><td class="muted">Cerámica·10V</td><td class="muted">Filtro entrada TP4056. Estabiliza carga USB</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$0.1</td></tr>
+<tr><td class="mono">L1</td><td style="font-weight:600">Inductor 4.7µH</td><td><span class="chip c-p">PASIVO</span></td><td class="muted">SMD·2A</td><td class="muted">Componente del boost MT3608. Almacena energía magnética</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$0.2</td></tr>
+<tr><td class="mono">J1</td><td style="font-weight:600">Conector USB-C</td><td><span class="chip c-c">CONECT</span></td><td class="muted">SMD·16-pin</td><td class="muted">Puerto de carga externa de la batería</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$0.5</td></tr>
+<tr><td class="mono">J2</td><td style="font-weight:600">JST-PH 2pin</td><td><span class="chip c-a">CONECT</span></td><td class="muted">JST-PH 2.0mm·hembra</td><td class="muted">Conexión batería Li-Po al circuito</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$0.3</td></tr>
+<tr><td class="mono">J3</td><td style="font-weight:600">Jack 3.5mm audio</td><td><span class="chip c-g">CONECT</span></td><td class="muted">TRS hembra·PCB mount</td><td class="muted">Salida auriculares. Privacidad en entorno hospitalario</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$0.5</td></tr>
+<tr><td class="mono">—</td><td style="font-weight:600">Protoboard 400pts</td><td><span class="chip c-t">PROTO</span></td><td class="muted">Breadboard sin soldar</td><td class="muted">Armar y probar sin soldar (fase prototipo)</td><td class="mono">×1</td><td class="mono" style="color:var(--amber)">$2–3</td></tr>
+<tr><td class="mono">—</td><td style="font-weight:600">Cables Dupont</td><td><span class="chip c-b">CABLE</span></td><td class="muted">20cm·M-M·M-H·H-H</td><td class="muted">Interconexión de todos los componentes en protoboard</td><td class="mono">×40</td><td class="mono" style="color:var(--amber)">$2–3</td></tr>
+<tr><td class="mono">—</td><td style="font-weight:600">Filamento PLA</td><td><span class="chip c-t">MECH</span></td><td class="muted">Blanco + 4 colores·250g</td><td class="muted">Carcasa blanca + caps 5 colores (azul/coral/ámbar/púrp./verde)</td><td class="mono">250g</td><td class="mono" style="color:var(--amber)">$5–10</td></tr>
+<tr><td class="mono">—</td><td style="font-weight:600">Tornillos M2×8</td><td><span class="chip c-t">MECH</span></td><td class="muted">Acero inox·cabeza plana</td><td class="muted">Unen tapa superior con cuerpo inferior de la carcasa</td><td class="mono">×12</td><td class="mono" style="color:var(--amber)">$1</td></tr>
+<tr style="background:rgba(0,212,170,.04)">
+  <td colspan="5" style="font-weight:600;font-size:.92rem;padding:12px">TOTAL — prototipo funcional completo</td>
+  <td></td><td style="font-size:1.1rem;font-weight:700;color:var(--teal);font-family:'JetBrains Mono',monospace">$30–52</td>
+</tr>
+</tbody></table></div>
+<div class="grid3" style="margin-top:14px">
+<div class="tip tip-t"><strong>AliExpress:</strong> kit ESP32+TFT juntos ~$12. Envío 15–25 días. Precio mínimo.</div>
+<div class="tip tip-a"><strong>MercadoLibre:</strong> 3–7 días, ~30% más caro. Ideal para prototipar rápido.</div>
+<div class="tip tip-p"><strong>PCB fabricación:</strong> JLCPCB/PCBWay desde $2 + envío. 5 PCBs. Post-validación.</div>
+</div>
+</section>
+
+<!-- S8 CÓDIGO -->
+<section class="sec" id="codigo">
+<div class="ey">Sección 08</div><div class="st">Código Base — Arduino IDE</div>
+<div class="sd">Código de arranque para ESP32 con 8 botones, debounce 50ms y pantalla TFT. Copiar en Arduino IDE y grabar.</div>
+<pre><span class="cm">// ═══════════════════════════════════════════
+// NOVA — Código base ESP32 · Arduino IDE
+// Board: ESP32 Dev Module · Speed: 921600
+// Lib:   TFT_eSPI (Bodmer) — Library Manager
+// ═══════════════════════════════════════════</span>
+<span class="kw">#include</span> &lt;TFT_eSPI.h&gt;
+<span class="kw">#include</span> &lt;SPI.h&gt;
+
+<span class="cm">// ── D-PAD pines ──────────────────────────</span>
+<span class="kw">#define</span> BTN_UP    <span class="num">34</span>   <span class="cm">// PLA azul  ▲</span>
+<span class="kw">#define</span> BTN_DOWN  <span class="num">35</span>   <span class="cm">// PLA azul  ▼</span>
+<span class="kw">#define</span> BTN_LEFT  <span class="num">32</span>   <span class="cm">// PLA azul  ◀</span>
+<span class="kw">#define</span> BTN_RIGHT <span class="num">33</span>   <span class="cm">// PLA azul  ▶</span>
+<span class="cm">// ── ABXY pines ───────────────────────────</span>
+<span class="kw">#define</span> BTN_A     <span class="num">26</span>   <span class="cm">// PLA coral   — Confirmar</span>
+<span class="kw">#define</span> BTN_B     <span class="num">27</span>   <span class="cm">// PLA ámbar   — Cancelar</span>
+<span class="kw">#define</span> BTN_X     <span class="num">14</span>   <span class="cm">// PLA púrpura — Especial</span>
+<span class="kw">#define</span> BTN_Y     <span class="num">13</span>   <span class="cm">// PLA verde   — Menú</span>
+
+<span class="kw">const int</span> PINES[] = {BTN_UP,BTN_DOWN,BTN_LEFT,BTN_RIGHT,
+                      BTN_A,BTN_B,BTN_X,BTN_Y};
+TFT_eSPI tft = TFT_eSPI();
+
+<span class="cm">// ── Debounce: true UNA vez por pulsación ─</span>
+<span class="kw">bool</span> <span class="fn">presionado</span>(<span class="kw">int</span> pin) {
+  <span class="kw">static unsigned long</span> t[<span class="num">40</span>]={<span class="num">0</span>};
+  <span class="kw">static bool</span> prev[<span class="num">40</span>]={<span class="kw">true</span>};
+  <span class="kw">bool</span> est = digitalRead(pin);
+  <span class="kw">if</span>(est==LOW &amp;&amp; prev[pin]==HIGH &amp;&amp; millis()-t[pin]&gt;<span class="num">50</span>){
+    prev[pin]=LOW; t[pin]=millis(); <span class="kw">return true</span>;
+  }
+  <span class="kw">if</span>(est==HIGH) prev[pin]=HIGH;
+  <span class="kw">return false</span>;
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="cm">// Configurar 8 botones con pull-up interno</span>
+  <span class="kw">for</span>(<span class="kw">int</span> i=<span class="num">0</span>;i&lt;<span class="num">8</span>;i++) pinMode(PINES[i], INPUT_PULLUP);
+  <span class="cm">// Inicializar pantalla TFT</span>
+  tft.<span class="fn">init</span>(); tft.<span class="fn">setRotation</span>(<span class="num">1</span>);
+  tft.<span class="fn">fillScreen</span>(TFT_BLACK);
+  tft.<span class="fn">setTextColor</span>(TFT_GREEN, TFT_BLACK);
+  tft.<span class="fn">drawString</span>(<span class="cm">"NOVA lista!"</span>, <span class="num">10</span>, <span class="num">10</span>, <span class="num">2</span>);
+  <span class="cm">// ⚠ Editar TFT_eSPI/User_Setup.h:</span>
+  <span class="cm">// TFT_CS=15 · TFT_DC=2 · TFT_RST=4</span>
+  <span class="cm">// TFT_MOSI=23 · TFT_SCLK=18</span>
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_UP))    { <span class="cm">/* navegar ↑  */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_DOWN))  { <span class="cm">/* navegar ↓  */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_LEFT))  { <span class="cm">/* navegar ←  */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_RIGHT)) { <span class="cm">/* navegar →  */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_A))     { <span class="cm">/* confirmar  */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_B))     { <span class="cm">/* cancelar   */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_X))     { <span class="cm">/* especial   */</span> }
+  <span class="kw">if</span>(<span class="fn">presionado</span>(BTN_Y))     { <span class="cm">/* abrir menú */</span> }
+}</pre>
+<div class="grid3" style="margin-top:14px">
+<div class="tip tip-t"><strong>TFT_eSPI:</strong> Editar <code>User_Setup.h</code> → definir pines CS=15, DC=2, RST=4, MOSI=23, SCK=18.</div>
+<div class="tip tip-b"><strong>Simular primero:</strong> wokwi.com → ESP32 + ILI9341 + 8 Pushbutton → pegar código → ▶ Play.</div>
+<div class="tip tip-a"><strong>Grabar al ESP32:</strong> Board=ESP32 Dev Module · Speed=921600 · mantener BOOT si falla.</div>
+</div>
+</section>
+
+</div><!-- /wrap -->
+<footer style="border-top:1px solid var(--b);padding:26px 20px;text-align:center;color:var(--faint);font-size:.78rem;font-family:'JetBrains Mono',monospace">
+  NOVA — Documentación Técnica v1.0 &nbsp;·&nbsp; Diseño Mecánico &amp; Electrónico &nbsp;·&nbsp; Proyecto Aulas Hospitalarias &nbsp;·&nbsp; ESP32 + TFT ILI9341 + 8 botones 3D
+</footer>
+<script>
+document.querySelectorAll('.bcap').forEach(b=>{
+  const p=()=>b.classList.add('p'),r=()=>b.classList.remove('p');
+  b.addEventListener('mousedown',p);
+  b.addEventListener('mouseup',r);
+  b.addEventListener('mouseleave',r);
+  b.addEventListener('touchstart',e=>{e.preventDefault();p();},{passive:false});
+  b.addEventListener('touchend',r);
+});
+</script>
+</body>
+</html>
